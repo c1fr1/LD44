@@ -9,8 +9,11 @@ public class UserControls {
 	public static int[] backward = new int[] {GLFW_KEY_S};
 	public static int[] left = new int[] {GLFW_KEY_A};
 	public static int[] right = new int[] {GLFW_KEY_D};
-	public static int[] placeLamp = new int[] {GLFW_KEY_L};
+	public static int[] up = new int[] {GLFW_KEY_SPACE};
+	public static int[] down = new int[] {GLFW_KEY_LEFT_SHIFT};
+	public static int[] seeAsteroids = new int[] {GLFW_KEY_E};
 	public static int[] quit = new int[] {GLFW_KEY_ESCAPE};
+	public static int[] matchVelocity = new int[] {GLFW_KEY_Q};
 	
 	public static float sensitivity = 1f/500f;
 	
@@ -46,9 +49,33 @@ public class UserControls {
 		}
 		return false;
 	}
-	public static boolean placeLamp(EnigWindow window) {
-		for (int i:placeLamp) {
+	public static boolean up(EnigWindow window) {
+		for (int i:up) {
+			if (window.keys[i] > 0) {
+				return true;
+			}
+		}
+		return false;
+	}
+	public static boolean down(EnigWindow window) {
+		for (int i:down) {
+			if (window.keys[i] > 0) {
+				return true;
+			}
+		}
+		return false;
+	}
+	public static boolean matchVelocity(EnigWindow window) {
+		for (int i: matchVelocity) {
 			if (window.keys[i] == 1) {
+				return true;
+			}
+		}
+		return false;
+	}
+	public static boolean seeAsteroids(EnigWindow window) {
+		for (int i: seeAsteroids) {
+			if (window.keys[i] > 0) {
 				return true;
 			}
 		}
@@ -57,6 +84,7 @@ public class UserControls {
 	public static boolean quit(EnigWindow window) {
 		for (int i:quit) {
 			if (window.keys[i] == 1) {
+				window.keys[i] = 2;
 				return true;
 			}
 		}

@@ -1,0 +1,21 @@
+#version 330 core
+
+>noise4
+
+in vec3 pos;
+
+out vec4 color;
+
+uniform float time;
+
+void main() {
+    float starBrightness = gnoise(vec4(250 * pos, 2.718281828));
+    starBrightness = 1 - starBrightness;
+    starBrightness = 1 - starBrightness * starBrightness;
+    if (starBrightness < 0.98) {
+        discard;
+    }
+    starBrightness = clamp(50 * starBrightness - 49, 0, 1);
+    starBrightness *= clamp((gnoise(vec4(10 * pos, 2 * time)) + 1) * 0.5f, 0, 1);
+    color = vec4(starBrightness, starBrightness, starBrightness, 1);
+}

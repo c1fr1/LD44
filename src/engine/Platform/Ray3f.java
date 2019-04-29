@@ -2,6 +2,9 @@ package engine.Platform;
 
 import org.joml.Vector3f;
 
+import static java.lang.Math.min;
+import static java.lang.Math.sqrt;
+
 public class Ray3f {
 	
 	public Vector3f start;
@@ -145,6 +148,48 @@ public class Ray3f {
 	
 	public void translate(Vector3f offset) {
 		start.add(offset);
+	}
+	
+	public float closestTTo(Vector3f point) {
+		return - (delta.x * (start.x - point.x) + delta.y * (start.y - point.y) + delta.z * (start.z - point.z)) / (delta.lengthSquared());
+	}
+	
+	public Vector3f closestPointTo(Vector3f other) {
+		return getPointAt(closestTTo(other));
+	}
+	
+	public float closestDistanceSquared(Vector3f other) {
+		return closestPointTo(other).distanceSquared(other);
+	}
+	
+	public float closestDistance(Vector3f other) {
+		return (float) sqrt(closestDistanceSquared(other));
+	}
+	
+	public Vector3f closestPointInRangeTo(Vector3f other) {
+		float tval = closestTTo(other);
+		if (tval > 0 && tval < 1) {
+			return getPointAt(tval);
+		} else {
+			if (start.distanceSquared(other) < getPointAt(1f).distanceSquared(other)) {
+				return new Vector3f(start);
+			} else {
+				return getPointAt(1f);
+			}
+		}
+	}
+	
+	public float closestDistanceInRangeSquared(Vector3f other) {
+		float tval = closestTTo(other);
+		if (tval > 0 && tval < 1) {
+			return getPointAt(tval).distanceSquared(other);
+		} else {
+			return min(start.distanceSquared(other), getPointAt(1).distanceSquared(other));
+		}
+	}
+	
+	public float closestDistanceInRange(Vector3f other) {
+		return (float) sqrt(closestDistanceInRangeSquared(other));
 	}
 	
 }

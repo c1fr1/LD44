@@ -3,6 +3,8 @@ package game;
 import engine.OpenAL.SoundSource;
 import engine.OpenGL.EnigWindow;
 import engine.OpenGL.VAO;
+import game.views.GameOverView;
+import game.views.MainMenuView;
 import game.views.MainView;
 import org.joml.Matrix4f;
 
@@ -42,8 +44,12 @@ public class Main {
 		loadResources();
 		
 		MainView.main = new MainView(window);
+		GameOverView.main = new GameOverView(window);
+		MainMenuView.main = new MainMenuView(window);
 		
-		MainView.main.runLoop();
+		window.toggleCursorInput();
+		MainMenuView.main.runLoop();
+		window.toggleCursorInput();
 		
 		window.terminate();
 	}
@@ -52,5 +58,7 @@ public class Main {
 		source = new SoundSource();
 		Shaders.createMainShaders();
 		screenObj = new VAO(-1, -1, 2, 2);
+		
+		Asteroid.loadRes();
 	}
 }

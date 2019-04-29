@@ -1,0 +1,21 @@
+#version 330 core
+
+>noise4
+
+layout (location = 0) in vec3 vertices;
+layout (location = 2) in vec3 normals;
+
+out vec3 pos;
+out float height;
+out vec3 norm;
+
+uniform mat4 matrix;
+uniform float heightSeed;
+
+void main() {
+    height = (1 + 0.5 * gnoise(vec4(vertices, heightSeed)));
+	gl_Position = matrix * vec4(vertices * height, 1);
+	pos = vertices * height;
+	norm = normals;
+	gl_Position.z = -0.99 / gl_Position.w;
+}

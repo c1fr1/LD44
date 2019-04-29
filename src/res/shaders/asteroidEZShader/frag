@@ -1,0 +1,20 @@
+#version 330 core
+
+in vec3 pos;
+in float height;
+in vec3 norm;
+
+out vec4 color;
+
+uniform vec3 playerLookingDir;
+
+float lengthSquared(vec3 v) {
+    return dot(v, v);
+}
+
+void main() {
+    float blue = lengthSquared(cross(norm, playerLookingDir));
+    //blue *= 200;
+    //blue = 1;
+    color = vec4(0.1, 0.1, blue, 1);
+}

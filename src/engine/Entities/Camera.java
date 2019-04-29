@@ -15,7 +15,7 @@ public class Camera extends Vector3f {
 	
 	private Vector4f directionVector = new Vector4f(0f, 0f, 1f, 1f);
 	
-	public boolean usingStaticRotation = true;
+	public boolean usingStaticRotation = false;
 	
 	protected float pitch;
 	protected float yaw;
@@ -379,7 +379,11 @@ public class Camera extends Vector3f {
 	 * @return new rotated vector
 	 */
 	public Vector3f getRotatedVector(float x, float y, float z, float s) {
-		return new Vector3f(x, y, z).rotateX(-2*pitch).rotateY(-2*yaw).rotateZ(-2*roll).mul(s);
+		if (usingStaticRotation) {
+			return new Vector3f(x, y, z).rotateX(-pitch).rotateY(-yaw).rotateZ(-roll).mul(s);
+		} else  {
+			return new Vector3f(x, y, z).rotateX(-calculatedRotations.x).rotateY(-calculatedRotations.y).rotateZ(-calculatedRotations.z).mul(s);
+		}
 	}
 	
 	/**
