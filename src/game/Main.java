@@ -20,9 +20,9 @@ public class Main {
 			String os = System.getProperty("os.name");
 			System.out.println("Operating System: " + os);
 			if (os.contains("mac") || os.contains("Mac")) {
-				System.out.println("in order to get a stack trace, run with\njava -jar 'Burning Power.jar' noReRun -XstartOnFirstThread");
+				System.out.println("in order to get a stack trace, run with\njava -jar 'autotransport.jar' noReRun -XstartOnFirstThread");
 				try {
-					Runtime.getRuntime().exec(new String[]{"java", "-XstartOnFirstThread", "-jar", "'LD44.jar'", "noReRun"});
+					Runtime.getRuntime().exec(new String[]{"java", "-XstartOnFirstThread", "-jar", "'autotransport.jar'", "noReRun"});
 				} catch (IOException e) {
 					e.printStackTrace();
 				}

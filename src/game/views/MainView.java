@@ -240,7 +240,7 @@ public class MainView extends EnigView {
 	
 	public void manageDeath() {
 		baseIntensity -= 0.05 * deltaTime;
-		if (baseIntensity < 1) {
+		if (baseIntensity < 0) {
 			endGame(1);
 		}
 		if (player.energy < 0) {
@@ -364,8 +364,8 @@ public class MainView extends EnigView {
 				asters[i] = new Asteroid(totalTime);
 			}
 			if (asters[i].impactTimer < -0.5 && asters[i].length() < 10 + asters[i].scale) {
-				if (baseIntensity > 1) {
-					baseIntensity -= 1;
+				if (baseIntensity > 5) {
+					baseIntensity -= 5;
 					asters[i] = new Asteroid(totalTime);
 				} else {
 					endGame(0);
